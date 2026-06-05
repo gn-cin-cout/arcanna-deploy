@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: eck-operator
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: trial
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{cluster}}-eck-operator'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
+    spec:
+      project: default
+      source:
+        repoURL: https://helm.elastic.co
+        targetRevision: 3.4.0
+        chart: eck-operator
+        helm:
+          releaseName: elastic-operator
+          values: |
+            installCRDs: false
+            createClusterScopedResources: false
+            webhook:
+              enabled: false
+            config:
+              validateStorageClass: false
+            managedNamespaces:
+              - arcanna
+      destination:
+        server: '{{url}}'
+        namespace: arcanna
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        # automated:           # manual sync for operators (matches org convention)
+        #   selfHeal: true
+        #   prune: true

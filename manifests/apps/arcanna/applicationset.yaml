@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: arcanna
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - env: trial
+                  namespace: arcanna
+                  cluster: https://kubernetes.default.svc
+          - list:
+              elements:
+                - name: elasticsearch
+                  chart: elasticsearch
+                  wave: "1"
+                  release: elasticsearch
+  template:
+    metadata:
+      name: '{{.name}}-{{.env}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{.wave}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/gn-cin-cout/arcanna-helm.git
+        targetRevision: mainline
+        path: 'charts/{{.chart}}'
+        helm:
+          releaseName: '{{.release}}'
+          valueFiles:
+            - '../../envs/{{.env}}/{{.name}}.yaml'
+      destination:
+        server: '{{.cluster}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
