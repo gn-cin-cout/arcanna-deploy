@@ -20,6 +20,10 @@ spec:
                   chart: elasticsearch
                   wave: "1"
                   release: elasticsearch
+                - name: kafka
+                  chart: kafka
+                  wave: "1"
+                  release: kafka
   template:
     metadata:
       name: '{{.name}}-{{.env}}'
