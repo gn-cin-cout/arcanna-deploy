@@ -24,6 +24,7 @@ spec:
           releaseName: confluent-operator
           values: |
             namespaced: true
+            installClusterResources: false
             namespaceList:
               - arcanna
       destination:

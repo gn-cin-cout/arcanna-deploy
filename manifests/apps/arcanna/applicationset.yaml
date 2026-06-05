@@ -16,6 +16,10 @@ spec:
                   cluster: https://kubernetes.default.svc
           - list:
               elements:
+                - name: cfk-rbac
+                  chart: cfk-rbac
+                  wave: "-1"
+                  release: cfk-rbac
                 - name: elasticsearch
                   chart: elasticsearch
                   wave: "1"
