@@ -20,6 +20,10 @@ spec:
                   chart: cfk-rbac
                   wave: "-1"
                   release: cfk-rbac
+                - name: arcanna-secrets
+                  chart: arcanna-secrets
+                  wave: "0"
+                  release: arcanna-secrets
                 - name: elasticsearch
                   chart: elasticsearch
                   wave: "1"
