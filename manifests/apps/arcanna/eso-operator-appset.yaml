@@ -31,6 +31,6 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
-        # automated:           # manual sync for operators (matches org convention)
+        # automated:
         #   selfHeal: true
         #   prune: true
