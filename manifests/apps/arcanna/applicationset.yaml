@@ -24,6 +24,10 @@ spec:
                   chart: arcanna-secrets
                   wave: "0"
                   release: arcanna-secrets
+                - name: postgres
+                  chart: postgres
+                  wave: "0"
+                  release: postgres
                 - name: elasticsearch
                   chart: elasticsearch
                   wave: "1"
