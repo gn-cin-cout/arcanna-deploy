@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: eso-operator
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: trial
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: '{{cluster}}-eso-operator'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
+    spec:
+      project: default
+      source:
+        repoURL: https://charts.external-secrets.io
+        targetRevision: v0.18.0
+        chart: external-secrets
+        helm:
+          releaseName: external-secrets
+          values: |
+            installCRDs: true
+      destination:
+        server: '{{url}}'
+        namespace: external-secrets
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+        # automated:           # manual sync for operators (matches org convention)
+        #   selfHeal: true
+        #   prune: true
