@@ -22,12 +22,16 @@ spec:
                   release: cfk-rbac
                 - name: arcanna-secrets
                   chart: arcanna-secrets
-                  wave: "0"
+                  wave: "-1"
                   release: arcanna-secrets
                 - name: postgres
                   chart: postgres
                   wave: "0"
                   release: postgres
+                - name: redis
+                  chart: redis
+                  wave: "0"
+                  release: redis
                 - name: elasticsearch
                   chart: elasticsearch
                   wave: "1"
