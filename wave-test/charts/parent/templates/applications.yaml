@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: {{ $.Values.repoURL | quote }}
     targetRevision: {{ $.Values.targetRevision | quote }}
-    path: 'charts/{{ .chart }}'
+    path: 'wave-test/charts/{{ .chart }}'
     helm:
       parameters:
         - name: runId
