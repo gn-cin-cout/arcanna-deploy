@@ -17,7 +17,7 @@ spec:
       source:
         repoURL: 'https://github.com/gn-cin-cout/arcanna-deploy.git'
         targetRevision: main
-        path: 'charts/parent'
+        path: 'wave-test/charts/parent'
         helm:
           parameters:
             - name: repoURL
