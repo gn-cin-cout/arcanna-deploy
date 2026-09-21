@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: wave-test
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: test
+            runId: "1"  # bump this on each test run to force a real diff
+  template:
+    metadata:
+      name: '{{env}}-wave-test-parent'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/gn-cin-cout/arcanna-deploy.git'
+        targetRevision: main
+        path: 'charts/parent'
+        helm:
+          parameters:
+            - name: repoURL
+              value: 'https://github.com/gn-cin-cout/arcanna-deploy.git'
+            - name: runId
+              value: '{{runId}}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - CreateNamespace=true

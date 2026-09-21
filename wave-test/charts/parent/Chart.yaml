@@ -1,0 +1,5 @@
+apiVersion: v2
+name: parent
+description: Emits nested Application objects for start/component/end, wave-ordered
+type: application
+version: 0.1.0

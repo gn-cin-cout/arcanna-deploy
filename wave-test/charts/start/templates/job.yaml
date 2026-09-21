@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-job
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  labels:
+    app: start
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app: start
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: start
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "start job running, runId={{ .Values.runId }}"
+              sleep {{ .Values.sleepSeconds }}
+              echo "start job done"

@@ -1,0 +1,17 @@
+# These get filled in by the ApplicationSet template - placeholders here
+repoURL: ""
+targetRevision: HEAD
+destServer: "https://kubernetes.default.svc"
+destNamespace: wave-test
+runId: "1"
+
+children:
+  - name: start
+    chart: start
+    wave: "0"
+  - name: component
+    chart: component
+    wave: "1"
+  - name: end
+    chart: end
+    wave: "2"

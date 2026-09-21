@@ -1,0 +1,5 @@
+apiVersion: v2
+name: start
+description: Mimics migration-start — hook-only Job + marker ConfigMap
+type: application
+version: 0.1.0
