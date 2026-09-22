@@ -1,0 +1,6 @@
+# env-test/charts/probe/Chart.yaml
+apiVersion: v2
+name: probe
+description: Minimal test chart for env-block substitution validation
+type: application
+version: 0.1.0
