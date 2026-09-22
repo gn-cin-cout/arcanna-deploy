@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: env-probe}
+  template:
+    metadata:
+      labels: {app: env-probe}
+    spec:
+      containers:
+        - name: probe
+          image: busybox:1.36
+          command: ["sh", "-c", "sleep 3600"]
+          env: {{ .Values.envBlock }}
